@@ -36,21 +36,32 @@ public class CurrentAccount implements Credentials {
 
 	public Deposit deposit(OperationLocation location, long envelope,
 			double amount) throws BusinessException {
-		depositAmount(amount);
-
+		
+		if  (location instanceof Branch) {
+			// Se foi feito em uma agência, valor sempre é depositado
+			depositAmount(amount); 
+		}
+		else{
+			// Se foi feito em um ATM, valor só é depositado se for menor ou igual a 100
+			if(amount <= Deposit.LIMIT) {
+				depositAmount(amount);
+			}
+		}
+		
 		Deposit deposit = new Deposit(location, this, envelope, amount);
 		this.deposits.add(deposit);
 
 		return deposit;
 	}
-
-	private void depositAmount(double amount) throws BusinessException {
+	
+	public void depositAmount(double amount) throws BusinessException {
 		if (!isValidAmount(amount)) {
 			throw new BusinessException("exception.invalid.amount");
 		}
 
 		this.balance += amount;
 	}
+
 
 	/**
 	 * @return the balance
@@ -114,7 +125,7 @@ public class CurrentAccount implements Credentials {
 	public Transfer transfer(OperationLocation location,
 			CurrentAccount destinationAccount, double amount)
 			throws BusinessException {
-		withdrawalAmount(amount);
+		withdrawalAmount(amount, true);
 		destinationAccount.depositAmount(amount);
 
 		Transfer transfer = new Transfer(location, this, destinationAccount,
@@ -127,7 +138,7 @@ public class CurrentAccount implements Credentials {
 
 	public Withdrawal withdrawal(OperationLocation location, double amount)
 			throws BusinessException {
-		withdrawalAmount(amount);
+		withdrawalAmount(amount, true);
 
 		Withdrawal withdrawal = new Withdrawal(location, this, amount);
 		this.withdrawals.add(withdrawal);
@@ -135,12 +146,12 @@ public class CurrentAccount implements Credentials {
 		return withdrawal;
 	}
 
-	private void withdrawalAmount(double amount) throws BusinessException {
+	public void withdrawalAmount(double amount, boolean checkBalance) throws BusinessException {
 		if (!isValidAmount(amount)) {
 			throw new BusinessException("exception.invalid.amount");
 		}
 
-		if (!hasEnoughBalance(amount)) {
+		if (checkBalance && !hasEnoughBalance(amount)) {
 			throw new BusinessException("exception.insufficient.balance");
 		}
 

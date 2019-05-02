@@ -131,6 +131,7 @@ public class Database {
 
 				cal.add(Calendar.MONTH, -1);
 			}
+			
 		} catch (Exception e) {
 			log.error(e);
 			e.printStackTrace();

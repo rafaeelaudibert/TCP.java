@@ -46,7 +46,7 @@ public class BankText extends Bank {
 		for (int i = 0; i < bankInterfaces.size(); i++) {
 			BankInterface bi = bankInterfaces.get(i);
 			sb.append(i + 1).append(" - ");
-			if (bi instanceof BranchInterface) {
+			if (bi instanceof BranchInterface) { //Campus Vale, Centro
 				sb.append(((Branch) bi.getOperationLocation()).getName());
 			} else {
 				assert bi instanceof ATMInterface;

@@ -11,6 +11,7 @@ import bank.ui.text.command.LogoutCommand;
 import bank.ui.text.command.StatementCommand;
 import bank.ui.text.command.TransferCommand;
 import bank.ui.text.command.WithdrawalCommand;
+import bank.ui.text.command.CheckPendingCommand;
 
 /**
  * @author Ingrid Nunes
@@ -32,6 +33,7 @@ public class BranchInterface extends BankTextInterface {
 		this.addAction("W",
 				new WithdrawalCommand(this, accountOperationService));
 		this.addAction("T", new TransferCommand(this, accountOperationService));
+		this.addAction("P", new CheckPendingCommand(this, accountOperationService));
 		this.addAction("O", new LogoutCommand(this));
 	}
 

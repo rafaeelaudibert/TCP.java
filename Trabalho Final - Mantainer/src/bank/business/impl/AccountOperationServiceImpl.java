@@ -40,7 +40,8 @@ public class AccountOperationServiceImpl implements AccountOperationService {
 			throws BusinessException {
 		CurrentAccount currentAccount = readCurrentAccount(branch,
 				accountNumber);
-		Deposit deposit = currentAccount.deposit(
+	
+		Deposit deposit = currentAccount.deposit( 
 				getOperationLocation(operationLocation), envelope, amount);
 		return deposit;
 	}
@@ -164,4 +165,17 @@ public class AccountOperationServiceImpl implements AccountOperationService {
 		return withdrawal;
 	}
 
+	public List<Deposit> getPendingDeposits() {
+		List<Deposit> selectedDeposits = new LinkedList<>();
+
+		for(CurrentAccount currentAccount : database.getAllCurrentAccounts()) {
+			for (Deposit deposit : currentAccount.getDeposits()) {
+				if (deposit.isPending()) {
+					selectedDeposits.add(deposit);
+				}
+			}
+		}
+
+		return selectedDeposits;
+	}
 }
