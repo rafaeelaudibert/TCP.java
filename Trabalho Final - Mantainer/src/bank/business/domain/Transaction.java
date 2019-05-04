@@ -13,8 +13,7 @@ public abstract class Transaction {
 	private Date date;
 	private OperationLocation location;
 
-	protected Transaction(OperationLocation location, CurrentAccount account,
-			double amount) {
+	protected Transaction(OperationLocation location, CurrentAccount account, double amount) {
 		this.location = location;
 		this.date = new Date(System.currentTimeMillis());
 		this.account = account;
@@ -52,8 +51,7 @@ public abstract class Transaction {
 	/**
 	 * This method is here for initializing the database.
 	 * 
-	 * @param date
-	 *            the date to set
+	 * @param date the date to set
 	 */
 	public void setDate(Date date) {
 		this.date = date;

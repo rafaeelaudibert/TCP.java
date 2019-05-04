@@ -47,83 +47,62 @@ public class CreateAccountAction extends BankAction {
 	protected JTextField lastName;
 	protected JTextField name;
 
-	public CreateAccountAction(BankGraphicInterface bankInterface,
-			TextManager textManager,
+	public CreateAccountAction(BankGraphicInterface bankInterface, TextManager textManager,
 			AccountManagementService accountManagementService) {
 		super(bankInterface, textManager);
 		this.accountManagementService = accountManagementService;
 
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
-		super.putValue(Action.NAME,
-				textManager.getText("action.create.account"));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		super.putValue(Action.NAME, textManager.getText("action.create.account"));
 	}
 
 	private void createAccount() {
 		try {
-			if (!GUIUtils.INSTANCE.checkMandatoryString(
-					bankInterface.getFrame(), name.getText(), "firstName"))
+			if (!GUIUtils.INSTANCE.checkMandatoryString(bankInterface.getFrame(), name.getText(), "firstName"))
 				return;
-			if (!GUIUtils.INSTANCE.checkMandatoryString(
-					bankInterface.getFrame(), lastName.getText(), "lastName"))
+			if (!GUIUtils.INSTANCE.checkMandatoryString(bankInterface.getFrame(), lastName.getText(), "lastName"))
 				return;
-			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-					cpf.getValue(), "cpf"))
+			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), cpf.getValue(), "cpf"))
 				return;
-			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-					birthday.getValue(), "birthday"))
+			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), birthday.getValue(), "birthday"))
 				return;
-			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-					balance.getValue(), "initial.balance"))
+			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), balance.getValue(), "initial.balance"))
 				return;
 
-			CurrentAccount currentAccount = accountManagementService
-					.createCurrentAccount(bankInterface.getOperationLocation()
-							.getNumber(), name.getText(), lastName.getText(),
-							((Number) cpf.getValue()).intValue(),
-							(Date) birthday.getValue(), ((Number) balance
-									.getValue()).doubleValue());
+			CurrentAccount currentAccount = accountManagementService.createCurrentAccount(
+					bankInterface.getOperationLocation().getNumber(), name.getText(), lastName.getText(),
+					((Number) cpf.getValue()).intValue(), (Date) birthday.getValue(),
+					((Number) balance.getValue()).doubleValue());
 
 			StringBuffer sb = new StringBuffer();
-			sb.append(textManager.getText("message.operation.succesfull"))
-					.append("\n");
+			sb.append(textManager.getText("message.operation.succesfull")).append("\n");
 
 			sb.append("- ").append(textManager.getText("client")).append("\n");
-			sb.append(textManager.getText("firstName")).append(": ")
-					.append(currentAccount.getClient().getFirstName())
+			sb.append(textManager.getText("firstName")).append(": ").append(currentAccount.getClient().getFirstName())
 					.append("\n");
-			sb.append(textManager.getText("lastName")).append(": ")
-					.append(currentAccount.getClient().getLastName())
+			sb.append(textManager.getText("lastName")).append(": ").append(currentAccount.getClient().getLastName())
 					.append("\n");
-			sb.append(textManager.getText("cpf")).append(": ")
-					.append(currentAccount.getClient().getCpf()).append("\n");
-			sb.append(textManager.getText("birthday"))
-					.append(": ")
-					.append(GUIUtils.DATE_FORMAT.format(currentAccount
-							.getClient().getBirthday())).append("\n");
-			sb.append(textManager.getText("password")).append(": ")
-					.append(currentAccount.getClient().getPassword())
+			sb.append(textManager.getText("cpf")).append(": ").append(currentAccount.getClient().getCpf()).append("\n");
+			sb.append(textManager.getText("birthday")).append(": ")
+					.append(GUIUtils.DATE_FORMAT.format(currentAccount.getClient().getBirthday())).append("\n");
+			sb.append(textManager.getText("password")).append(": ").append(currentAccount.getClient().getPassword())
 					.append("\n");
 
-			sb.append("- ").append(textManager.getText("current.account"))
+			sb.append("- ").append(textManager.getText("current.account")).append("\n");
+			sb.append(textManager.getText("branch")).append(": ").append(currentAccount.getId().getBranch())
 					.append("\n");
-			sb.append(textManager.getText("branch")).append(": ")
-					.append(currentAccount.getId().getBranch()).append("\n");
-			sb.append(textManager.getText("number")).append(": ")
-					.append(currentAccount.getId().getNumber()).append("\n");
-			sb.append(textManager.getText("balance")).append(": ")
-					.append(currentAccount.getBalance());
+			sb.append(textManager.getText("number")).append(": ").append(currentAccount.getId().getNumber())
+					.append("\n");
+			sb.append(textManager.getText("balance")).append(": ").append(currentAccount.getBalance());
 
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					sb.toString(), JOptionPane.INFORMATION_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), sb.toString(), JOptionPane.INFORMATION_MESSAGE);
 			dialog.dispose();
 		} catch (BusinessException be) {
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					be.getMessage(), be.getArgs(), JOptionPane.WARNING_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), be.getMessage(), be.getArgs(),
+					JOptionPane.WARNING_MESSAGE);
 			log.warn(be);
 		} catch (Exception exc) {
-			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(),
-					exc);
+			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(), exc);
 		}
 	}
 
@@ -173,8 +152,7 @@ public class CreateAccountAction extends BankAction {
 		subpanel.add(ok);
 		panel.add(subpanel, BorderLayout.SOUTH);
 
-		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(),
-				"action.transfer", panel);
+		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(), "action.transfer", panel);
 		this.dialog.setVisible(true);
 	}
 }

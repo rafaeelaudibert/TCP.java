@@ -19,18 +19,14 @@ import bank.ui.text.UIUtils;
 public class BankGraphic extends Bank {
 
 	@Override
-	public BankInterface createATMInterface(ATM atm,
-			AccountOperationServiceImpl accountOperationService) {
-		return new ATMGUIInterface(atm, UIUtils.INSTANCE.getTextManager(),
-				accountOperationService);
+	public BankInterface createATMInterface(ATM atm, AccountOperationServiceImpl accountOperationService) {
+		return new ATMGUIInterface(atm, UIUtils.INSTANCE.getTextManager(), accountOperationService);
 	}
 
 	@Override
-	public BankInterface createBranchInterface(Branch branch,
-			AccountManagementService accountManagementService,
+	public BankInterface createBranchInterface(Branch branch, AccountManagementService accountManagementService,
 			AccountOperationServiceImpl accountOperationService) {
-		return new BranchGUIInterface(branch,
-				UIUtils.INSTANCE.getTextManager(), accountManagementService,
+		return new BranchGUIInterface(branch, UIUtils.INSTANCE.getTextManager(), accountManagementService,
 				accountOperationService);
 	}
 

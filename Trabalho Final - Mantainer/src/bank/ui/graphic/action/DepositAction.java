@@ -40,13 +40,11 @@ public class DepositAction extends AccountAbstractAction {
 	private JDialog dialog;
 	private JFormattedTextField envelope;
 
-	public DepositAction(BankGraphicInterface bankInterface,
-			TextManager textManager,
+	public DepositAction(BankGraphicInterface bankInterface, TextManager textManager,
 			AccountOperationService accountOperationService) {
 		super(bankInterface, textManager, accountOperationService);
 
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 		super.putValue(Action.NAME, textManager.getText("action.deposit"));
 	}
 
@@ -59,8 +57,7 @@ public class DepositAction extends AccountAbstractAction {
 
 		initAndAddAccountFields(subpanel);
 
-		this.envelope = new JFormattedTextField(
-				NumberFormat.getIntegerInstance());
+		this.envelope = new JFormattedTextField(NumberFormat.getIntegerInstance());
 		envelope.setColumns(10);
 		subpanel.add(new JLabel(textManager.getText("envelope") + ":"));
 		subpanel.add(envelope);
@@ -83,8 +80,7 @@ public class DepositAction extends AccountAbstractAction {
 		subpanel.add(ok);
 		panel.add(subpanel, BorderLayout.SOUTH);
 
-		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(),
-				"action.deposit", panel);
+		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(), "action.deposit", panel);
 		this.dialog.setVisible(true);
 	}
 
@@ -92,29 +88,22 @@ public class DepositAction extends AccountAbstractAction {
 		try {
 			if (!checkAccountFields())
 				return;
-			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-					amount.getValue(), "amount"))
+			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), amount.getValue(), "amount"))
 				return;
-			Deposit deposit = accountOperationService.deposit(bankInterface
-					.getOperationLocation().getNumber(), ((Number) branch
-					.getValue()).longValue(), ((Number) accountNumber
-					.getValue()).longValue(), ((Number) envelope.getValue())
-					.intValue(), ((Number) amount.getValue()).doubleValue());
+			Deposit deposit = accountOperationService.deposit(bankInterface.getOperationLocation().getNumber(),
+					((Number) branch.getValue()).longValue(), ((Number) accountNumber.getValue()).longValue(),
+					((Number) envelope.getValue()).intValue(), ((Number) amount.getValue()).doubleValue());
 			StringBuffer sb = new StringBuffer();
-			sb.append(textManager.getText("message.operation.succesfull"))
-					.append("\n");
-			sb.append(textManager.getText("deposit") + ": "
-					+ deposit.getAmount());
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					sb.toString(), JOptionPane.INFORMATION_MESSAGE);
+			sb.append(textManager.getText("message.operation.succesfull")).append("\n");
+			sb.append(textManager.getText("deposit") + ": " + deposit.getAmount());
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), sb.toString(), JOptionPane.INFORMATION_MESSAGE);
 			dialog.dispose();
 		} catch (BusinessException be) {
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					be.getMessage(), be.getArgs(), JOptionPane.WARNING_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), be.getMessage(), be.getArgs(),
+					JOptionPane.WARNING_MESSAGE);
 			log.warn(be);
 		} catch (Exception exc) {
-			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(),
-					exc);
+			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(), exc);
 		}
 	}
 

@@ -38,13 +38,11 @@ public class BalanceAction extends AccountAbstractAction {
 	private JFormattedTextField balance;
 	private JDialog dialog;
 
-	public BalanceAction(BankGraphicInterface bankInterface,
-			TextManager textManager,
+	public BalanceAction(BankGraphicInterface bankInterface, TextManager textManager,
 			AccountOperationService accountOperationService) {
 		super(bankInterface, textManager, accountOperationService);
 
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_B, ActionEvent.CTRL_MASK));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, ActionEvent.CTRL_MASK));
 		super.putValue(Action.NAME, textManager.getText("action.balance"));
 	}
 
@@ -57,8 +55,7 @@ public class BalanceAction extends AccountAbstractAction {
 
 		initAndAddAccountFields(subpanel);
 
-		this.balance = new JFormattedTextField(
-				NumberFormat.getCurrencyInstance());
+		this.balance = new JFormattedTextField(NumberFormat.getCurrencyInstance());
 		balance.setColumns(10);
 		balance.setEditable(false);
 		subpanel.add(new JLabel(textManager.getText("balance") + ":"));
@@ -85,8 +82,7 @@ public class BalanceAction extends AccountAbstractAction {
 			setBalance();
 		}
 
-		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(),
-				"action.balance", panel);
+		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(), "action.balance", panel);
 		this.dialog.setVisible(true);
 	}
 
@@ -94,8 +90,7 @@ public class BalanceAction extends AccountAbstractAction {
 		try {
 			if (!checkAccountFields())
 				return;
-			double balance = accountOperationService.getBalance(
-					((Number) branch.getValue()).longValue(),
+			double balance = accountOperationService.getBalance(((Number) branch.getValue()).longValue(),
 					((Number) accountNumber.getValue()).longValue());
 			this.balance.setValue(balance);
 		} catch (BusinessException be) {

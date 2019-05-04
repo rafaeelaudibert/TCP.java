@@ -21,21 +21,18 @@ public class LogoutAction extends BankAction {
 
 	private static final long serialVersionUID = 5090183202921964451L;
 
-	public LogoutAction(BankGraphicInterface bankInterface,
-			TextManager textManager) {
+	public LogoutAction(BankGraphicInterface bankInterface, TextManager textManager) {
 		super(bankInterface, textManager);
 
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
 		super.putValue(Action.NAME, textManager.getText("action.logout"));
 	}
 
 	@Override
 	public void execute() throws Exception {
-		int answer = JOptionPane.showConfirmDialog(bankInterface.getFrame()
-				.getContentPane(), textManager
-				.getText("message.confirm.cancel"), bankInterface.getFrame()
-				.getTitle(), JOptionPane.WARNING_MESSAGE);
+		int answer = JOptionPane.showConfirmDialog(bankInterface.getFrame().getContentPane(),
+				textManager.getText("message.confirm.cancel"), bankInterface.getFrame().getTitle(),
+				JOptionPane.WARNING_MESSAGE);
 
 		if (JOptionPane.YES_OPTION == answer) {
 			bankInterface.logout();

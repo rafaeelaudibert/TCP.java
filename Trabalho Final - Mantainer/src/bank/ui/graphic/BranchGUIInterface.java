@@ -26,31 +26,23 @@ import bank.ui.graphic.action.WithdrawalAction;
 public class BranchGUIInterface extends BankGraphicInterface {
 
 	public BranchGUIInterface(Branch location, TextManager textManager,
-			AccountManagementService accountManagementService,
-			AccountOperationService accountOperationService) {
+			AccountManagementService accountManagementService, AccountOperationService accountOperationService) {
 		super(location, textManager);
 
 		LogoutAction logoutAction = new LogoutAction(this, textManager);
 		ExitAction exitAction = new ExitAction(this, textManager, logoutAction);
 		this.setExitAction(exitAction);
 
-		addMenuAction(new EmployeeLoginAction(this, textManager,
-				accountManagementService));
+		addMenuAction(new EmployeeLoginAction(this, textManager, accountManagementService));
 		addMenuAction(logoutAction);
 		addMenuAction(exitAction);
 
-		addPanelAction(new CreateAccountAction(this, textManager,
-				accountManagementService));
-		addPanelAction(new BalanceAction(this, textManager,
-				accountOperationService));
-		addPanelAction(new StatementAction(this, textManager,
-				accountOperationService));
-		addPanelAction(new DepositAction(this, textManager,
-				accountOperationService));
-		addPanelAction(new WithdrawalAction(this, textManager,
-				accountOperationService));
-		addPanelAction(new TransferAction(this, textManager,
-				accountOperationService));
+		addPanelAction(new CreateAccountAction(this, textManager, accountManagementService));
+		addPanelAction(new BalanceAction(this, textManager, accountOperationService));
+		addPanelAction(new StatementAction(this, textManager, accountOperationService));
+		addPanelAction(new DepositAction(this, textManager, accountOperationService));
+		addPanelAction(new WithdrawalAction(this, textManager, accountOperationService));
+		addPanelAction(new TransferAction(this, textManager, accountOperationService));
 	}
 
 	@Override

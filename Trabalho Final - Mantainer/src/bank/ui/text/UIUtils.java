@@ -95,8 +95,7 @@ public class UIUtils {
 					value = sdf.parse(str);
 				}
 			} catch (ParseException pe) {
-				System.out.println(textManager.getText("exception.date.format",
-						DATE_FORMAT, false));
+				System.out.println(textManager.getText("exception.date.format", DATE_FORMAT, false));
 				log.warn(pe);
 			} catch (Exception e) {
 				handleUnexceptedError(e);
@@ -112,8 +111,7 @@ public class UIUtils {
 				System.out.print(textManager.getText(field) + ": ");
 				value = new Double(reader.readLine());
 			} catch (NumberFormatException nfe) {
-				System.out.println(textManager
-						.getText("exception.double.format"));
+				System.out.println(textManager.getText("exception.double.format"));
 				log.warn(nfe);
 			} catch (Exception e) {
 				handleUnexceptedError(e);
@@ -130,8 +128,7 @@ public class UIUtils {
 					System.out.print(textManager.getText(field) + ": ");
 				value = new Integer(reader.readLine());
 			} catch (NumberFormatException nfe) {
-				System.out.println(textManager
-						.getText("exception.integer.format"));
+				System.out.println(textManager.getText("exception.integer.format"));
 				log.warn(nfe);
 			} catch (Exception e) {
 				handleUnexceptedError(e);
@@ -146,9 +143,8 @@ public class UIUtils {
 			value = readInteger(field);
 			if (value < min || value > max) {
 				value = null;
-				System.out.println(textManager.getText(
-						"exception.integer.range", new String[] { "" + min,
-								"" + max }, false));
+				System.out.println(
+						textManager.getText("exception.integer.range", new String[] { "" + min, "" + max }, false));
 			}
 		}
 		return value;
@@ -161,8 +157,7 @@ public class UIUtils {
 				System.out.print(textManager.getText(field) + ": ");
 				value = new Long(reader.readLine());
 			} catch (NumberFormatException nfe) {
-				System.out
-						.println(textManager.getText("exception.long.format"));
+				System.out.println(textManager.getText("exception.long.format"));
 				log.warn(nfe);
 			} catch (Exception e) {
 				handleUnexceptedError(e);

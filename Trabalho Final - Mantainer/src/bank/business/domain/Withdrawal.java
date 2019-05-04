@@ -6,8 +6,7 @@ package bank.business.domain;
  */
 public class Withdrawal extends Transaction {
 
-	public Withdrawal(OperationLocation location, CurrentAccount account,
-			double amount) {
+	public Withdrawal(OperationLocation location, CurrentAccount account, double amount) {
 		super(location, account, amount);
 	}
 

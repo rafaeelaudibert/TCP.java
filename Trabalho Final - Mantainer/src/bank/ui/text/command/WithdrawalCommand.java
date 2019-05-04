@@ -13,8 +13,7 @@ public class WithdrawalCommand extends Command {
 
 	private final AccountOperationService accountOperationService;
 
-	public WithdrawalCommand(BankTextInterface bankInterface,
-			AccountOperationService accountOperationService) {
+	public WithdrawalCommand(BankTextInterface bankInterface, AccountOperationService accountOperationService) {
 		super(bankInterface);
 		this.accountOperationService = accountOperationService;
 	}
@@ -25,14 +24,11 @@ public class WithdrawalCommand extends Command {
 		Long accountNumber = bankInterface.readCurrentAccountNumber();
 		Double amount = UIUtils.INSTANCE.readDouble("amount");
 
-		Withdrawal withdrawal = accountOperationService.withdrawal(
-				bankInterface.getOperationLocation().getNumber(), branch,
-				accountNumber, amount);
+		Withdrawal withdrawal = accountOperationService.withdrawal(bankInterface.getOperationLocation().getNumber(),
+				branch, accountNumber, amount);
 
-		System.out.println(getTextManager().getText(
-				"message.operation.succesfull"));
-		System.out.println(getTextManager().getText("withdrawal") + ": "
-				+ withdrawal.getAmount());
+		System.out.println(getTextManager().getText("message.operation.succesfull"));
+		System.out.println(getTextManager().getText("withdrawal") + ": " + withdrawal.getAmount());
 	}
 
 }

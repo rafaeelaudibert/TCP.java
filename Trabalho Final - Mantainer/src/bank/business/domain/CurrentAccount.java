@@ -28,32 +28,29 @@ public class CurrentAccount implements Credentials {
 		this.withdrawals = new ArrayList<>();
 	}
 
-	public CurrentAccount(Branch branch, long number, Client client,
-			double initialBalance) {
+	public CurrentAccount(Branch branch, long number, Client client, double initialBalance) {
 		this(branch, number, client);
 		this.balance = initialBalance;
 	}
 
-	public Deposit deposit(OperationLocation location, long envelope,
-			double amount) throws BusinessException {
-		
-		if  (location instanceof Branch) {
+	public Deposit deposit(OperationLocation location, long envelope, double amount) throws BusinessException {
+
+		if (location instanceof Branch) {
 			// Se foi feito em uma agência, valor sempre é depositado
-			depositAmount(amount); 
-		}
-		else{
+			depositAmount(amount);
+		} else {
 			// Se foi feito em um ATM, valor só é depositado se for menor ou igual a 100
-			if(amount <= Deposit.LIMIT) {
+			if (amount <= Deposit.LIMIT) {
 				depositAmount(amount);
 			}
 		}
-		
+
 		Deposit deposit = new Deposit(location, this, envelope, amount);
 		this.deposits.add(deposit);
 
 		return deposit;
 	}
-	
+
 	public void depositAmount(double amount) throws BusinessException {
 		if (!isValidAmount(amount)) {
 			throw new BusinessException("exception.invalid.amount");
@@ -61,7 +58,6 @@ public class CurrentAccount implements Credentials {
 
 		this.balance += amount;
 	}
-
 
 	/**
 	 * @return the balance
@@ -92,8 +88,7 @@ public class CurrentAccount implements Credentials {
 	}
 
 	public List<Transaction> getTransactions() {
-		List<Transaction> transactions = new ArrayList<>(deposits.size()
-				+ withdrawals.size() + transfers.size());
+		List<Transaction> transactions = new ArrayList<>(deposits.size() + withdrawals.size() + transfers.size());
 		transactions.addAll(deposits);
 		transactions.addAll(withdrawals);
 		transactions.addAll(transfers);
@@ -122,22 +117,19 @@ public class CurrentAccount implements Credentials {
 		return amount > 0;
 	}
 
-	public Transfer transfer(OperationLocation location,
-			CurrentAccount destinationAccount, double amount)
+	public Transfer transfer(OperationLocation location, CurrentAccount destinationAccount, double amount)
 			throws BusinessException {
 		withdrawalAmount(amount, true);
 		destinationAccount.depositAmount(amount);
 
-		Transfer transfer = new Transfer(location, this, destinationAccount,
-				amount);
+		Transfer transfer = new Transfer(location, this, destinationAccount, amount);
 		this.transfers.add(transfer);
 		destinationAccount.transfers.add(transfer);
 
 		return transfer;
 	}
 
-	public Withdrawal withdrawal(OperationLocation location, double amount)
-			throws BusinessException {
+	public Withdrawal withdrawal(OperationLocation location, double amount) throws BusinessException {
 		withdrawalAmount(amount, true);
 
 		Withdrawal withdrawal = new Withdrawal(location, this, amount);

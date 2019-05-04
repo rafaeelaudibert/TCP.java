@@ -41,13 +41,11 @@ public class TransferAction extends AccountAbstractAction {
 	protected JFormattedTextField dstAccountNumber;
 	protected JFormattedTextField dstBranch;
 
-	public TransferAction(BankGraphicInterface bankInterface,
-			TextManager textManager,
+	public TransferAction(BankGraphicInterface bankInterface, TextManager textManager,
 			AccountOperationService accountOperationService) {
 		super(bankInterface, textManager, accountOperationService);
 
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
 		super.putValue(Action.NAME, textManager.getText("action.transfer"));
 	}
 
@@ -60,17 +58,14 @@ public class TransferAction extends AccountAbstractAction {
 
 		initAndAddAccountFields(subpanel);
 
-		this.dstBranch = new JFormattedTextField(
-				NumberFormat.getIntegerInstance());
+		this.dstBranch = new JFormattedTextField(NumberFormat.getIntegerInstance());
 		dstBranch.setColumns(10);
 		subpanel.add(new JLabel(textManager.getText("destination.branch") + ":"));
 		subpanel.add(dstBranch);
 
-		this.dstAccountNumber = new JFormattedTextField(
-				NumberFormat.getIntegerInstance());
+		this.dstAccountNumber = new JFormattedTextField(NumberFormat.getIntegerInstance());
 		dstAccountNumber.setColumns(10);
-		subpanel.add(new JLabel(textManager
-				.getText("destination.account.number") + ":"));
+		subpanel.add(new JLabel(textManager.getText("destination.account.number") + ":"));
 		subpanel.add(dstAccountNumber);
 
 		this.amount = new JFormattedTextField(NumberFormat.getNumberInstance());
@@ -91,8 +86,7 @@ public class TransferAction extends AccountAbstractAction {
 		subpanel.add(ok);
 		panel.add(subpanel, BorderLayout.SOUTH);
 
-		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(),
-				"action.transfer", panel);
+		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(), "action.transfer", panel);
 		this.dialog.setVisible(true);
 	}
 
@@ -100,36 +94,28 @@ public class TransferAction extends AccountAbstractAction {
 		try {
 			if (!checkAccountFields())
 				return;
-			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-					dstBranch.getValue(), "destination.branch"))
+			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), dstBranch.getValue(), "destination.branch"))
 				return;
-			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-					dstAccountNumber.getValue(), "destination.account.number"))
+			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), dstAccountNumber.getValue(),
+					"destination.account.number"))
 				return;
-			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-					amount.getValue(), "amount"))
+			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), amount.getValue(), "amount"))
 				return;
-			Transfer transfer = accountOperationService.transfer(bankInterface
-					.getOperationLocation().getNumber(), ((Number) branch
-					.getValue()).longValue(), ((Number) accountNumber
-					.getValue()).longValue(), ((Number) dstBranch.getValue())
-					.longValue(), ((Number) dstAccountNumber.getValue())
-					.longValue(), ((Number) amount.getValue()).doubleValue());
+			Transfer transfer = accountOperationService.transfer(bankInterface.getOperationLocation().getNumber(),
+					((Number) branch.getValue()).longValue(), ((Number) accountNumber.getValue()).longValue(),
+					((Number) dstBranch.getValue()).longValue(), ((Number) dstAccountNumber.getValue()).longValue(),
+					((Number) amount.getValue()).doubleValue());
 			StringBuffer sb = new StringBuffer();
-			sb.append(textManager.getText("message.operation.succesfull"))
-					.append("\n");
-			sb.append(textManager.getText("transfer") + ": "
-					+ transfer.getAmount());
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					sb.toString(), JOptionPane.INFORMATION_MESSAGE);
+			sb.append(textManager.getText("message.operation.succesfull")).append("\n");
+			sb.append(textManager.getText("transfer") + ": " + transfer.getAmount());
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), sb.toString(), JOptionPane.INFORMATION_MESSAGE);
 			dialog.dispose();
 		} catch (BusinessException be) {
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					be.getMessage(), be.getArgs(), JOptionPane.WARNING_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), be.getMessage(), be.getArgs(),
+					JOptionPane.WARNING_MESSAGE);
 			log.warn(be);
 		} catch (Exception exc) {
-			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(),
-					exc);
+			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(), exc);
 		}
 	}
 

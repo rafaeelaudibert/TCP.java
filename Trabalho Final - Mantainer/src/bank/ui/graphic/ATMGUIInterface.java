@@ -24,29 +24,22 @@ import bank.ui.graphic.action.WithdrawalAction;
  */
 public class ATMGUIInterface extends BankGraphicInterface {
 
-	public ATMGUIInterface(ATM location, TextManager textManager,
-			AccountOperationService accountOperationService) {
+	public ATMGUIInterface(ATM location, TextManager textManager, AccountOperationService accountOperationService) {
 		super(location, textManager);
 
 		LogoutAction logoutAction = new LogoutAction(this, textManager);
 		ExitAction exitAction = new ExitAction(this, textManager, logoutAction);
 		this.setExitAction(exitAction);
 
-		addMenuAction(new ClientLoginAction(this, textManager,
-				accountOperationService));
+		addMenuAction(new ClientLoginAction(this, textManager, accountOperationService));
 		addMenuAction(logoutAction);
 		addMenuAction(exitAction);
 
-		addPanelAction(new BalanceAction(this, textManager,
-				accountOperationService));
-		addPanelAction(new StatementAction(this, textManager,
-				accountOperationService));
-		addPanelAction(new DepositAction(this, textManager,
-				accountOperationService));
-		addPanelAction(new WithdrawalAction(this, textManager,
-				accountOperationService));
-		addPanelAction(new TransferAction(this, textManager,
-				accountOperationService));
+		addPanelAction(new BalanceAction(this, textManager, accountOperationService));
+		addPanelAction(new StatementAction(this, textManager, accountOperationService));
+		addPanelAction(new DepositAction(this, textManager, accountOperationService));
+		addPanelAction(new WithdrawalAction(this, textManager, accountOperationService));
+		addPanelAction(new TransferAction(this, textManager, accountOperationService));
 	}
 
 	@Override
@@ -56,14 +49,12 @@ public class ATMGUIInterface extends BankGraphicInterface {
 
 	@Override
 	public Long readBranchId() {
-		return isLoggedIn() ? ((CurrentAccount) getCredentials()).getId()
-				.getBranch().getNumber() : null;
+		return isLoggedIn() ? ((CurrentAccount) getCredentials()).getId().getBranch().getNumber() : null;
 	}
 
 	@Override
 	public Long readCurrentAccountNumber() {
-		return isLoggedIn() ? ((CurrentAccount) getCredentials()).getId()
-				.getNumber() : null;
+		return isLoggedIn() ? ((CurrentAccount) getCredentials()).getId().getNumber() : null;
 	}
 
 }

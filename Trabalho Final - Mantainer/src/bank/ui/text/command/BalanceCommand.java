@@ -10,12 +10,11 @@ import bank.ui.text.BankTextInterface;
  * @author ingrid
  *
  */
-public class BalanceCommand  extends Command {
+public class BalanceCommand extends Command {
 
 	private final AccountOperationService accountOperationService;
 
-	public BalanceCommand(BankTextInterface bankInterface,
-			AccountOperationService accountOperationService) {
+	public BalanceCommand(BankTextInterface bankInterface, AccountOperationService accountOperationService) {
 		super(bankInterface);
 		this.accountOperationService = accountOperationService;
 	}
@@ -24,12 +23,10 @@ public class BalanceCommand  extends Command {
 	public void execute() throws Exception {
 		Long branch = bankInterface.readBranchId();
 		Long accountNumber = bankInterface.readCurrentAccountNumber();
-		
+
 		Double balance = accountOperationService.getBalance(branch, accountNumber);
-		
-		System.out
-				.println(getTextManager().getText("balance") + ": "
-				+ balance);
+
+		System.out.println(getTextManager().getText("balance") + ": " + balance);
 	}
 
 }

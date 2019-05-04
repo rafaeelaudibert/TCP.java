@@ -11,8 +11,7 @@ public class Client extends User {
 	private CurrentAccount account;
 	private int cpf;
 
-	public Client(String firstName, String lastName, int cpf, String password,
-			Date birthday) {
+	public Client(String firstName, String lastName, int cpf, String password, Date birthday) {
 		super(firstName, lastName, password, birthday);
 		this.cpf = cpf;
 		this.account = null;
@@ -33,8 +32,7 @@ public class Client extends User {
 	}
 
 	/**
-	 * @param account
-	 *            the account to set
+	 * @param account the account to set
 	 */
 	public void setAccount(CurrentAccount account) {
 		this.account = account;

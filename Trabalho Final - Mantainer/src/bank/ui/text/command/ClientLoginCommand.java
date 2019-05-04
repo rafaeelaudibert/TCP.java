@@ -13,8 +13,7 @@ public class ClientLoginCommand extends Command {
 
 	private final AccountOperationService accountOperationService;
 
-	public ClientLoginCommand(BankTextInterface bankInterface,
-			AccountOperationService accountOperationService) {
+	public ClientLoginCommand(BankTextInterface bankInterface, AccountOperationService accountOperationService) {
 		super(bankInterface);
 		setEnabled(true);
 		this.accountOperationService = accountOperationService;
@@ -26,8 +25,7 @@ public class ClientLoginCommand extends Command {
 		Long accountNumber = UIUtils.INSTANCE.readLong("account.number");
 		String password = UIUtils.INSTANCE.readString("password");
 
-		CurrentAccount currentAccount = accountOperationService.login(branch,
-				accountNumber, password);
+		CurrentAccount currentAccount = accountOperationService.login(branch, accountNumber, password);
 		bankInterface.login(currentAccount);
 	}
 

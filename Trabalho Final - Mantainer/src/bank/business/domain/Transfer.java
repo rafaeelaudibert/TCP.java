@@ -8,8 +8,8 @@ public class Transfer extends Transaction {
 
 	private CurrentAccount destinationAccount;
 
-	public Transfer(OperationLocation location, CurrentAccount account,
-			CurrentAccount destinationAccount, double amount) {
+	public Transfer(OperationLocation location, CurrentAccount account, CurrentAccount destinationAccount,
+			double amount) {
 		super(location, account, amount);
 		this.destinationAccount = destinationAccount;
 	}

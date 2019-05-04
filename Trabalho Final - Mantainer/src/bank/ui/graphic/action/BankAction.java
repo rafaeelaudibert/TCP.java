@@ -30,16 +30,14 @@ public abstract class BankAction extends AbstractAction implements UIAction {
 	protected final Log log;
 	protected final TextManager textManager;
 
-	protected BankAction(BankGraphicInterface bankInterface,
-			TextManager textManager) {
+	protected BankAction(BankGraphicInterface bankInterface, TextManager textManager) {
 		super();
 		this.log = LogFactory.getLog(this.getClass());
 		this.bankInterface = bankInterface;
 		this.textManager = textManager;
 
 		super.putValue(Action.ACCELERATOR_KEY, null);
-		super.putValue(Action.ACTION_COMMAND_KEY, this.getClass()
-				.getSimpleName());
+		super.putValue(Action.ACTION_COMMAND_KEY, this.getClass().getSimpleName());
 		super.putValue(Action.LONG_DESCRIPTION, null);
 		super.putValue(Action.MNEMONIC_KEY, null);
 		super.putValue(Action.NAME, null);
@@ -53,12 +51,11 @@ public abstract class BankAction extends AbstractAction implements UIAction {
 		try {
 			execute();
 		} catch (BusinessException be) {
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					be.getMessage(), be.getArgs(), JOptionPane.WARNING_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), be.getMessage(), be.getArgs(),
+					JOptionPane.WARNING_MESSAGE);
 			log.warn(be);
 		} catch (Exception exc) {
-			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(),
-					exc);
+			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(), exc);
 		}
 	}
 

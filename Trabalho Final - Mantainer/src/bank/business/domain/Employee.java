@@ -10,8 +10,7 @@ public class Employee extends User implements Credentials {
 
 	private String username;
 
-	public Employee(String firstName, String lastName, String username,
-			String password, Date birthday) {
+	public Employee(String firstName, String lastName, String username, String password, Date birthday) {
 		super(firstName, lastName, password, birthday);
 		this.username = username;
 	}
@@ -44,8 +43,7 @@ public class Employee extends User implements Credentials {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((username == null) ? 0 : username.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 

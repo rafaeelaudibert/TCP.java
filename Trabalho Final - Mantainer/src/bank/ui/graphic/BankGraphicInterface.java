@@ -31,8 +31,7 @@ public abstract class BankGraphicInterface extends BankInterface {
 	public class WindowHandler extends WindowAdapter {
 
 		public void windowClosing(WindowEvent e) {
-			exitAction.actionPerformed(new ActionEvent(this,
-					ActionEvent.ACTION_PERFORMED, exitAction.getCommandKey()));
+			exitAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, exitAction.getCommandKey()));
 		}
 
 	}
@@ -44,8 +43,7 @@ public abstract class BankGraphicInterface extends BankInterface {
 	private final JPanel panel;
 	private final TextManager textManager;
 
-	public BankGraphicInterface(OperationLocation location,
-			TextManager textManager) {
+	public BankGraphicInterface(OperationLocation location, TextManager textManager) {
 		super(location);
 		this.frame = new JFrame();
 		this.textManager = textManager;
@@ -74,13 +72,11 @@ public abstract class BankGraphicInterface extends BankInterface {
 
 	public void center() {
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation((screen.width - frame.getSize().width) / 2,
-				(screen.height - frame.getSize().height) / 2);
+		frame.setLocation((screen.width - frame.getSize().width) / 2, (screen.height - frame.getSize().height) / 2);
 	}
 
 	public void createAndShowUI() {
-		frame.setTitle(textManager.getText("application.title") + " - "
-				+ location);
+		frame.setTitle(textManager.getText("application.title") + " - " + location);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowHandler());
 		frame.setVisible(false);

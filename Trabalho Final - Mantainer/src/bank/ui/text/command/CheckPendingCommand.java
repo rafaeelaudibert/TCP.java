@@ -9,38 +9,36 @@ import bank.ui.text.BankTextInterface;
 import bank.ui.text.UIUtils;
 
 public class CheckPendingCommand extends Command {
-	
+
 	private static final Integer EXIT_CODE = 0;
 	private static final Integer REJECT = 0;
 	private static final Integer ACCEPT = 1;
 
 	private final AccountOperationService accountOperationService;
-	
-	public CheckPendingCommand(BankTextInterface bankInterface,
-	AccountOperationService accountOperationService) {
+
+	public CheckPendingCommand(BankTextInterface bankInterface, AccountOperationService accountOperationService) {
 		super(bankInterface);
 		this.accountOperationService = accountOperationService;
-		
+
 	}
-	
-	public void execute() {		
+
+	public void execute() {
 		List<Deposit> pendingDeposits = null;
 		Integer index = EXIT_CODE;
-		
-		
-		do{
+
+		do {
 			// Pega dep�sitos pendentes
-			pendingDeposits =  accountOperationService.getPendingDeposits();
-			
+			pendingDeposits = accountOperationService.getPendingDeposits();
+
 			if (!pendingDeposits.isEmpty()) {
 				System.out.println(getTextManager().getText("pending.init"));
-				
+
 				printDeposits(pendingDeposits);
-				
-				index = UIUtils.INSTANCE.readInteger("pending.selection", 0, pendingDeposits.size());			
-				
-				if(!index.equals(EXIT_CODE)) {
-					Integer option =  UIUtils.INSTANCE.readInteger("pending.option", REJECT, ACCEPT);
+
+				index = UIUtils.INSTANCE.readInteger("pending.selection", 0, pendingDeposits.size());
+
+				if (!index.equals(EXIT_CODE)) {
+					Integer option = UIUtils.INSTANCE.readInteger("pending.option", REJECT, ACCEPT);
 					if (option.equals(ACCEPT)) {
 						try {
 							pendingDeposits.get(index - 1).accept();
@@ -58,19 +56,18 @@ public class CheckPendingCommand extends Command {
 					}
 				}
 			}
-		}
-		while(!index.equals(EXIT_CODE) && !pendingDeposits.isEmpty());
-		
+		} while (!index.equals(EXIT_CODE) && !pendingDeposits.isEmpty());
+
 		if (pendingDeposits.isEmpty()) {
 			System.out.println(getTextManager().getText("pending.empty"));
 		}
 	}
-	
+
 	private void printDeposits(List<Deposit> pendingDeposits) {
-		for(int i = 0; i < pendingDeposits.size(); i++) {
+		for (int i = 0; i < pendingDeposits.size(); i++) {
 			System.out.format("%03d -> " + pendingDeposits.get(i), i + 1);
 		}
-		System.out.println(""); //Blank line
+		System.out.println(""); // Blank line
 	}
-	
+
 }

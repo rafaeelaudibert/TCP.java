@@ -93,21 +93,17 @@ public class Database {
 			save(atm3);
 
 			// Employee
-			Employee employee = new Employee("Ingrid", "Nunes", "ingrid",
-					"123", new Date());
+			Employee employee = new Employee("Ingrid", "Nunes", "ingrid", "123", new Date());
 			save(employee);
 
 			// Current Accounts
-			Client client1 = new Client("Ingrid", "Nunes", 1234567890, "123",
-					new Date());
+			Client client1 = new Client("Ingrid", "Nunes", 1234567890, "123", new Date());
 			CurrentAccount ca1 = new CurrentAccount(b1, 1l, client1, 300);
 			save(ca1);
-			Client client2 = new Client("Joao", "Silva", 1234567890, "123",
-					new Date());
+			Client client2 = new Client("Joao", "Silva", 1234567890, "123", new Date());
 			CurrentAccount ca2 = new CurrentAccount(b2, 2l, client2, 200);
 			save(ca2);
-			Client client3 = new Client("Richer", "Rich", 1234567890, "123",
-					new Date());
+			Client client3 = new Client("Richer", "Rich", 1234567890, "123", new Date());
 			CurrentAccount ca3 = new CurrentAccount(b2, 3l, client3, 10000);
 			save(ca3);
 
@@ -115,23 +111,17 @@ public class Database {
 			Random r = new Random(System.currentTimeMillis());
 			Calendar cal = Calendar.getInstance();
 			for (int i = 0; i < 8; i++) {
-				changeDate(
-						ca1.deposit(b1, r.nextInt(10000), r.nextDouble() * 150),
-						r, cal);
+				changeDate(ca1.deposit(b1, r.nextInt(10000), r.nextDouble() * 150), r, cal);
 				changeDate(ca1.withdrawal(atm1, r.nextDouble() * 100), r, cal);
-				changeDate(ca1.transfer(atm2, ca2, r.nextDouble() * 100), r,
-						cal);
+				changeDate(ca1.transfer(atm2, ca2, r.nextDouble() * 100), r, cal);
 
-				changeDate(
-						ca2.deposit(b2, r.nextInt(10000), r.nextDouble() * 150),
-						r, cal);
+				changeDate(ca2.deposit(b2, r.nextInt(10000), r.nextDouble() * 150), r, cal);
 				changeDate(ca2.withdrawal(atm2, r.nextDouble() * 100), r, cal);
-				changeDate(ca2.transfer(atm3, ca1, r.nextDouble() * 100), r,
-						cal);
+				changeDate(ca2.transfer(atm3, ca1, r.nextDouble() * 100), r, cal);
 
 				cal.add(Calendar.MONTH, -1);
 			}
-			
+
 		} catch (Exception e) {
 			log.error(e);
 			e.printStackTrace();
@@ -154,8 +144,7 @@ public class Database {
 	}
 
 	public void save(OperationLocation operationLocation) {
-		this.operationLocations.put(operationLocation.getNumber(),
-				operationLocation);
+		this.operationLocations.put(operationLocation.getNumber(), operationLocation);
 	}
 
 }

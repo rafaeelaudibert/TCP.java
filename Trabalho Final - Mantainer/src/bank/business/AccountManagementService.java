@@ -14,11 +14,9 @@ import bank.business.domain.Employee;
  */
 public interface AccountManagementService {
 
-	public CurrentAccount createCurrentAccount(long branch, String name,
-			String lastName, int cpf, Date birthday, double balance)
-			throws BusinessException;
+	public CurrentAccount createCurrentAccount(long branch, String name, String lastName, int cpf, Date birthday,
+			double balance) throws BusinessException;
 
-	public Employee login(String username, String password)
-			throws BusinessException;
+	public Employee login(String username, String password) throws BusinessException;
 
 }

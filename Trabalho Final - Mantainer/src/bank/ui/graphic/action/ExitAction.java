@@ -22,11 +22,9 @@ public class ExitAction extends BankAction {
 
 	private LogoutAction logoutAction;
 
-	public ExitAction(BankGraphicInterface bankInterface,
-			TextManager textManager, LogoutAction logoutAction) {
+	public ExitAction(BankGraphicInterface bankInterface, TextManager textManager, LogoutAction logoutAction) {
 		super(bankInterface, textManager);
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 		super.putValue(Action.NAME, textManager.getText("action.exit"));
 		setEnabled(true);
 		this.logoutAction = logoutAction;
@@ -35,9 +33,7 @@ public class ExitAction extends BankAction {
 	public void execute() throws Exception {
 		if (bankInterface.isLoggedIn()) {
 			logoutAction
-					.actionPerformed(new ActionEvent(this,
-							ActionEvent.ACTION_PERFORMED, logoutAction
-									.getCommandKey()));
+					.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, logoutAction.getCommandKey()));
 			if (bankInterface.isLoggedIn()) {
 				return;
 			}

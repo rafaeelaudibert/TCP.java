@@ -23,19 +23,16 @@ public abstract class AccountAbstractAction extends BankAction {
 	protected AccountOperationService accountOperationService;
 	protected JFormattedTextField branch;
 
-	protected AccountAbstractAction(BankGraphicInterface bankInterface,
-			TextManager textManager,
+	protected AccountAbstractAction(BankGraphicInterface bankInterface, TextManager textManager,
 			AccountOperationService accountOperationService) {
 		super(bankInterface, textManager);
 		this.accountOperationService = accountOperationService;
 	}
 
 	protected boolean checkAccountFields() {
-		if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-				branch.getValue(), "branch"))
+		if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), branch.getValue(), "branch"))
 			return false;
-		if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-				accountNumber.getValue(), "account.number"))
+		if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), accountNumber.getValue(), "account.number"))
 			return false;
 		return true;
 	}
@@ -46,8 +43,7 @@ public abstract class AccountAbstractAction extends BankAction {
 		panel.add(new JLabel(textManager.getText("branch") + ":"));
 		panel.add(branch);
 
-		this.accountNumber = new JFormattedTextField(
-				NumberFormat.getIntegerInstance());
+		this.accountNumber = new JFormattedTextField(NumberFormat.getIntegerInstance());
 		accountNumber.setColumns(10);
 		panel.add(new JLabel(textManager.getText("account.number") + ":"));
 		panel.add(accountNumber);

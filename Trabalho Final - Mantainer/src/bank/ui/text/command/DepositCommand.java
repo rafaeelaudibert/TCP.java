@@ -13,8 +13,7 @@ public class DepositCommand extends Command {
 
 	private final AccountOperationService accountOperationService;
 
-	public DepositCommand(BankTextInterface bankInterface,
-			AccountOperationService accountOperationService) {
+	public DepositCommand(BankTextInterface bankInterface, AccountOperationService accountOperationService) {
 		super(bankInterface);
 		this.accountOperationService = accountOperationService;
 	}
@@ -25,14 +24,13 @@ public class DepositCommand extends Command {
 		Long accountNumber = bankInterface.readCurrentAccountNumber();
 		Long envelope = UIUtils.INSTANCE.readLong("envelope");
 		Double amount = UIUtils.INSTANCE.readDouble("amount");
-		
-		Deposit deposit = accountOperationService.deposit(bankInterface
-				.getOperationLocation().getNumber(), branch, accountNumber,
-				envelope, amount);
-		
-		System.out.println(getTextManager().getText(
-				deposit.isPending() ? "message.operation.pending" : "message.operation.succesfull"));
-		
+
+		Deposit deposit = accountOperationService.deposit(bankInterface.getOperationLocation().getNumber(), branch,
+				accountNumber, envelope, amount);
+
+		System.out.println(getTextManager()
+				.getText(deposit.isPending() ? "message.operation.pending" : "message.operation.succesfull"));
+
 		System.out.println(getTextManager().getText("deposit") + ": " + deposit.getAmount());
 	}
 

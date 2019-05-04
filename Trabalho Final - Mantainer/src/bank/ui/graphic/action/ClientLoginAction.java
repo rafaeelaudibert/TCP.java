@@ -43,14 +43,12 @@ public class ClientLoginAction extends BankAction {
 	private JDialog dialog;
 	private JPasswordField password;
 
-	public ClientLoginAction(BankGraphicInterface bankInterface,
-			TextManager textManager,
+	public ClientLoginAction(BankGraphicInterface bankInterface, TextManager textManager,
 			AccountOperationService accountOperationService) {
 		super(bankInterface, textManager);
 		this.accountOperationService = accountOperationService;
 
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
 		super.putValue(Action.NAME, textManager.getText("action.login"));
 		setEnabled(true);
 	}
@@ -59,8 +57,7 @@ public class ClientLoginAction extends BankAction {
 	public void execute() throws Exception {
 		this.branch = new JFormattedTextField(NumberFormat.getIntegerInstance());
 		branch.setColumns(10);
-		this.accountNumber = new JFormattedTextField(
-				NumberFormat.getIntegerInstance());
+		this.accountNumber = new JFormattedTextField(NumberFormat.getIntegerInstance());
 		accountNumber.setColumns(10);
 		this.password = new JPasswordField();
 		password.setColumns(10);
@@ -88,27 +85,23 @@ public class ClientLoginAction extends BankAction {
 		subpanel.add(ok);
 		panel.add(subpanel, BorderLayout.SOUTH);
 
-		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(),
-				"action.login", panel);
+		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(), "action.login", panel);
 		this.dialog.setVisible(true);
 	}
 
 	private void executeLogin() {
 		try {
-			CurrentAccount currentAccount = accountOperationService.login(
-					((Number) branch.getValue()).longValue(),
-					((Number) accountNumber.getValue()).longValue(),
-					new String(password.getPassword()));
+			CurrentAccount currentAccount = accountOperationService.login(((Number) branch.getValue()).longValue(),
+					((Number) accountNumber.getValue()).longValue(), new String(password.getPassword()));
 			bankInterface.login(currentAccount);
 			dialog.dispose();
 			dialog = null;
 		} catch (BusinessException be) {
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					be.getMessage(), be.getArgs(), JOptionPane.WARNING_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), be.getMessage(), be.getArgs(),
+					JOptionPane.WARNING_MESSAGE);
 			log.warn(be);
 		} catch (Exception exc) {
-			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(),
-					exc);
+			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(), exc);
 		}
 	}
 }

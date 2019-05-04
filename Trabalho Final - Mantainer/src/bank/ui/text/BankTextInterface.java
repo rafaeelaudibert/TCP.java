@@ -31,8 +31,7 @@ public abstract class BankTextInterface extends BankInterface {
 				try {
 					command.execute();
 				} catch (BusinessException be) {
-					System.out.println(uiUtils.getTextManager().getText(
-							be.getMessage(), be.getArgs()));
+					System.out.println(uiUtils.getTextManager().getText(be.getMessage(), be.getArgs()));
 					log.warn(be);
 				} catch (Exception e) {
 					uiUtils.handleUnexceptedError(e);
@@ -46,15 +45,12 @@ public abstract class BankTextInterface extends BankInterface {
 
 	protected String getMenu(TextManager textManager) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(textManager.getText("message.options", EXIT_CODE, false))
-				.append(":\n");
+		sb.append(textManager.getText("message.options", EXIT_CODE, false)).append(":\n");
 		for (String key : actions.keySet()) {
 			UIAction action = actions.get(key);
 			if (action.isEnabled()) {
-				sb.append(key)
-						.append(" - ")
-						.append(textManager.getText(action.getClass()
-								.getSimpleName())).append("\n");
+				sb.append(key).append(" - ").append(textManager.getText(action.getClass().getSimpleName()))
+						.append("\n");
 			}
 		}
 		sb.append(textManager.getText("message.choose.option")).append(": ");

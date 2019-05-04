@@ -24,10 +24,8 @@ import bank.ui.TextManager;
  */
 public class GUIUtils {
 
-	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(
-			"dd/MM/yyyy");
-	public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat(
-			"dd/MM/yyyy HH:mm:ss");
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+	public static final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	public static final GUIUtils INSTANCE = new GUIUtils();
 	public static final String PROPERTY_RESOURCE_BUNDLE = "bank.resources.globalMessages";
 
@@ -41,18 +39,15 @@ public class GUIUtils {
 
 	public boolean checkMandatory(JFrame owner, Object obj, String fieldName) {
 		if (obj == null) {
-			showMessage(owner, "exception.field.mandatory",
-					new String[] { fieldName }, JOptionPane.WARNING_MESSAGE);
+			showMessage(owner, "exception.field.mandatory", new String[] { fieldName }, JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		return true;
 	}
 
-	public boolean checkMandatoryString(JFrame owner, String str,
-			String fieldName) {
+	public boolean checkMandatoryString(JFrame owner, String str, String fieldName) {
 		if (str == null || "".equals(str)) {
-			showMessage(owner, "exception.field.mandatory",
-					new String[] { fieldName }, JOptionPane.WARNING_MESSAGE);
+			showMessage(owner, "exception.field.mandatory", new String[] { fieldName }, JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		return true;
@@ -65,8 +60,7 @@ public class GUIUtils {
 		dialog.setContentPane(panel);
 		dialog.pack();
 		Dimension locRef = Toolkit.getDefaultToolkit().getScreenSize();
-		dialog.setLocation((locRef.width - dialog.getSize().width) / 2,
-				(locRef.height - dialog.getSize().height) / 2);
+		dialog.setLocation((locRef.width - dialog.getSize().width) / 2, (locRef.height - dialog.getSize().height) / 2);
 		return dialog;
 	}
 
@@ -93,16 +87,13 @@ public class GUIUtils {
 		showMessage(title, owner, key, new String[0], type);
 	}
 
-	public void showMessage(String title, JFrame owner, String key, String arg,
-			int type) {
+	public void showMessage(String title, JFrame owner, String key, String arg, int type) {
 		showMessage(title, owner, key, new String[] { arg }, type);
 	}
 
-	public void showMessage(String title, JFrame owner, String key,
-			String[] args, int type) {
-		JOptionPane.showMessageDialog(owner.getContentPane(),
-				textManager.getText(key, args), textManager.getText(title),
-				type);
+	public void showMessage(String title, JFrame owner, String key, String[] args, int type) {
+		JOptionPane.showMessageDialog(owner.getContentPane(), textManager.getText(key, args),
+				textManager.getText(title), type);
 	}
 
 }

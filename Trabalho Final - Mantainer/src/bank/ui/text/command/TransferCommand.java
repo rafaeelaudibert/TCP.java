@@ -13,8 +13,7 @@ public class TransferCommand extends Command {
 
 	private final AccountOperationService accountOperationService;
 
-	public TransferCommand(BankTextInterface bankInterface,
-			AccountOperationService accountOperationService) {
+	public TransferCommand(BankTextInterface bankInterface, AccountOperationService accountOperationService) {
 		super(bankInterface);
 		this.accountOperationService = accountOperationService;
 	}
@@ -25,19 +24,15 @@ public class TransferCommand extends Command {
 		Long srcAccountNumber = bankInterface.readCurrentAccountNumber();
 
 		Long dstBranch = UIUtils.INSTANCE.readLong("destination.branch");
-		Long dstAccountNumber = UIUtils.INSTANCE
-				.readLong("destination.account.number");
+		Long dstAccountNumber = UIUtils.INSTANCE.readLong("destination.account.number");
 
 		Double amount = UIUtils.INSTANCE.readDouble("amount");
 
-		Transfer transfer = accountOperationService.transfer(bankInterface
-				.getOperationLocation().getNumber(), srcBranch,
-				srcAccountNumber, dstBranch, dstAccountNumber, amount);
+		Transfer transfer = accountOperationService.transfer(bankInterface.getOperationLocation().getNumber(),
+				srcBranch, srcAccountNumber, dstBranch, dstAccountNumber, amount);
 
-		System.out.println(getTextManager().getText(
-				"message.operation.succesfull"));
-		System.out.println(getTextManager().getText("transfer") + ": "
-				+ transfer.getAmount());
+		System.out.println(getTextManager().getText("message.operation.succesfull"));
+		System.out.println(getTextManager().getText("transfer") + ": " + transfer.getAmount());
 	}
 
 }

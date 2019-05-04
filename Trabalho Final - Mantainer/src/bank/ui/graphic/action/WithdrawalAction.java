@@ -39,13 +39,11 @@ public class WithdrawalAction extends AccountAbstractAction {
 	private JFormattedTextField amount;
 	private JDialog dialog;
 
-	public WithdrawalAction(BankGraphicInterface bankInterface,
-			TextManager textManager,
+	public WithdrawalAction(BankGraphicInterface bankInterface, TextManager textManager,
 			AccountOperationService accountOperationService) {
 		super(bankInterface, textManager, accountOperationService);
 
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
 		super.putValue(Action.NAME, textManager.getText("action.withdrawal"));
 	}
 
@@ -76,8 +74,7 @@ public class WithdrawalAction extends AccountAbstractAction {
 		subpanel.add(ok);
 		panel.add(subpanel, BorderLayout.SOUTH);
 
-		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(),
-				"action.withdrawal", panel);
+		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(), "action.withdrawal", panel);
 		this.dialog.setVisible(true);
 	}
 
@@ -85,29 +82,22 @@ public class WithdrawalAction extends AccountAbstractAction {
 		try {
 			if (!checkAccountFields())
 				return;
-			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(),
-					amount.getValue(), "amount"))
+			if (!GUIUtils.INSTANCE.checkMandatory(bankInterface.getFrame(), amount.getValue(), "amount"))
 				return;
-			Withdrawal withdrawal = accountOperationService.withdrawal(
-					bankInterface.getOperationLocation().getNumber(),
-					((Number) branch.getValue()).longValue(),
-					((Number) accountNumber.getValue()).longValue(),
+			Withdrawal withdrawal = accountOperationService.withdrawal(bankInterface.getOperationLocation().getNumber(),
+					((Number) branch.getValue()).longValue(), ((Number) accountNumber.getValue()).longValue(),
 					((Number) amount.getValue()).doubleValue());
 			StringBuffer sb = new StringBuffer();
-			sb.append(textManager.getText("message.operation.succesfull"))
-					.append("\n");
-			sb.append(textManager.getText("withdrawal") + ": "
-					+ withdrawal.getAmount());
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					sb.toString(), JOptionPane.INFORMATION_MESSAGE);
+			sb.append(textManager.getText("message.operation.succesfull")).append("\n");
+			sb.append(textManager.getText("withdrawal") + ": " + withdrawal.getAmount());
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), sb.toString(), JOptionPane.INFORMATION_MESSAGE);
 			dialog.dispose();
 		} catch (BusinessException be) {
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					be.getMessage(), be.getArgs(), JOptionPane.WARNING_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), be.getMessage(), be.getArgs(),
+					JOptionPane.WARNING_MESSAGE);
 			log.warn(be);
 		} catch (Exception exc) {
-			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(),
-					exc);
+			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(), exc);
 		}
 	}
 

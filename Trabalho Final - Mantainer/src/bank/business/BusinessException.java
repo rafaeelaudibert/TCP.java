@@ -34,8 +34,7 @@ public class BusinessException extends Exception {
 	 * Create a new instance of BusinessException.
 	 * </p>
 	 * 
-	 * @param message
-	 *            the message to show.
+	 * @param message the message to show.
 	 */
 	public BusinessException(final String message) {
 		super(message);
@@ -47,10 +46,8 @@ public class BusinessException extends Exception {
 	 * Create a new instance of BusinessException.
 	 * </p>
 	 * 
-	 * @param message
-	 *            the message to show.
-	 * @param arg
-	 *            the message argument.
+	 * @param message the message to show.
+	 * @param arg     the message argument.
 	 */
 	public BusinessException(final String message, final String arg) {
 		super(message);
@@ -62,15 +59,11 @@ public class BusinessException extends Exception {
 	 * Create a new instance of BusinessException.
 	 * </p>
 	 * 
-	 * @param message
-	 *            the message to show.
-	 * @param arg
-	 *            the message argument.
-	 * @param cause
-	 *            the exception that caused this exception.
+	 * @param message the message to show.
+	 * @param arg     the message argument.
+	 * @param cause   the exception that caused this exception.
 	 */
-	public BusinessException(final String message, final String arg,
-			final Throwable cause) {
+	public BusinessException(final String message, final String arg, final Throwable cause) {
 		super(message, cause);
 		this.args = new String[] { arg };
 	}
@@ -80,10 +73,8 @@ public class BusinessException extends Exception {
 	 * Create a new instance of BusinessException.
 	 * </p>
 	 * 
-	 * @param message
-	 *            the message to show.
-	 * @param args
-	 *            the message arguments.
+	 * @param message the message to show.
+	 * @param args    the message arguments.
 	 */
 	public BusinessException(final String message, final String[] args) {
 		super(message);
@@ -95,15 +86,11 @@ public class BusinessException extends Exception {
 	 * Create a new instance of BusinessException.
 	 * </p>
 	 * 
-	 * @param message
-	 *            the message to show.
-	 * @param args
-	 *            the message arguments.
-	 * @param cause
-	 *            the exception that caused this exception.
+	 * @param message the message to show.
+	 * @param args    the message arguments.
+	 * @param cause   the exception that caused this exception.
 	 */
-	public BusinessException(final String message, final String[] args,
-			final Throwable cause) {
+	public BusinessException(final String message, final String[] args, final Throwable cause) {
 		super(message, cause);
 		this.args = args;
 	}
@@ -113,10 +100,8 @@ public class BusinessException extends Exception {
 	 * Create a new instance of BusinessException.
 	 * </p>
 	 * 
-	 * @param message
-	 *            the message to show.
-	 * @param cause
-	 *            the exception that caused this exception.
+	 * @param message the message to show.
+	 * @param cause   the exception that caused this exception.
 	 */
 	public BusinessException(final String message, final Throwable cause) {
 		super(message, cause);
@@ -127,8 +112,7 @@ public class BusinessException extends Exception {
 	 * Create a new instance of BusinessException.
 	 * </p>
 	 * 
-	 * @param cause
-	 *            the exception that caused this exception.
+	 * @param cause the exception that caused this exception.
 	 */
 	public BusinessException(final Throwable cause) {
 		super(cause);

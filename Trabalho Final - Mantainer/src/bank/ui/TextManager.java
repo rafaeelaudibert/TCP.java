@@ -17,8 +17,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class TextManager {
 
-	public static final Locale LANGUAGE[] = { new Locale("en", "US"),
-			new Locale("pt", "BR") };
+	public static final Locale LANGUAGE[] = { new Locale("en", "US"), new Locale("pt", "BR") };
 
 	public static final int LANGUAGE_ENGLISH = 0;
 	public static final int LANGUAGE_PORTUGUESE = 1;
@@ -124,8 +123,7 @@ public class TextManager {
 	}
 
 	/**
-	 * @param baseName
-	 *            the baseName to set
+	 * @param baseName the baseName to set
 	 */
 	public void setBaseName(String baseName) {
 		this.baseName = baseName;
@@ -133,8 +131,7 @@ public class TextManager {
 	}
 
 	/**
-	 * @param customName
-	 *            the customName to set
+	 * @param customName the customName to set
 	 */
 	public void setCustomName(String customName) {
 		this.customName = customName;
@@ -150,8 +147,7 @@ public class TextManager {
 	}
 
 	/**
-	 * @param locale
-	 *            the locale to set
+	 * @param locale the locale to set
 	 */
 	public void setLocale(Locale locale) {
 		this.locale = locale;

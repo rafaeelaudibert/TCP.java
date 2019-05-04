@@ -10,7 +10,7 @@ import java.util.Random;
  * 
  */
 public class RandomString {
-	
+
 	private static final char[] symbols = new char[36];
 
 	static {
@@ -35,5 +35,5 @@ public class RandomString {
 			buf[idx] = symbols[random.nextInt(symbols.length)];
 		return new String(buf);
 	}
-	
+
 }

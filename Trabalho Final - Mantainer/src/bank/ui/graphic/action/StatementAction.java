@@ -80,8 +80,7 @@ public class StatementAction extends AccountAbstractAction {
 		private CurrentAccountId id;
 		private List<Transaction> transactions;
 
-		public TransactionTableModel(CurrentAccountId id,
-				List<Transaction> transactions) {
+		public TransactionTableModel(CurrentAccountId id, List<Transaction> transactions) {
 			this.id = id;
 			this.transactions = new ArrayList<>(transactions);
 		}
@@ -134,8 +133,7 @@ public class StatementAction extends AccountAbstractAction {
 				val = t.getLocation();
 				break;
 			case 2:
-				val = textManager.getText("operation."
-						+ t.getClass().getSimpleName());
+				val = textManager.getText("operation." + t.getClass().getSimpleName());
 				break;
 			case 3:
 				if (t instanceof Deposit) {
@@ -143,11 +141,11 @@ public class StatementAction extends AccountAbstractAction {
 				} else if (t instanceof Transfer) {
 					Transfer transfer = (Transfer) t;
 					StringBuffer sb = new StringBuffer();
-					CurrentAccountId otherId = transfer.getAccount().getId()
-							.equals(id) ? transfer.getDestinationAccount()
-							.getId() : transfer.getAccount().getId();
-					sb.append("AG ").append(otherId.getBranch().getNumber())
-							.append(" C/C ").append(otherId.getNumber());
+					CurrentAccountId otherId = transfer.getAccount().getId().equals(id)
+							? transfer.getDestinationAccount().getId()
+							: transfer.getAccount().getId();
+					sb.append("AG ").append(otherId.getBranch().getNumber()).append(" C/C ")
+							.append(otherId.getNumber());
 					val = sb.toString();
 				} else if (t instanceof Withdrawal) {
 					val = "";
@@ -193,13 +191,11 @@ public class StatementAction extends AccountAbstractAction {
 	private JTable transactions;
 	private StatementType type;
 
-	public StatementAction(BankGraphicInterface bankInterface,
-			TextManager textManager,
+	public StatementAction(BankGraphicInterface bankInterface, TextManager textManager,
 			AccountOperationService accountOperationService) {
 		super(bankInterface, textManager, accountOperationService);
 
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
 		super.putValue(Action.NAME, textManager.getText("action.statement"));
 	}
 
@@ -208,8 +204,7 @@ public class StatementAction extends AccountAbstractAction {
 		dialog = null;
 	}
 
-	private JRadioButton createRadioButton(StatementType type,
-			ButtonGroup btGroup, ActionListener al) {
+	private JRadioButton createRadioButton(StatementType type, ButtonGroup btGroup, ActionListener al) {
 		JRadioButton bt = new JRadioButton(textManager.getText(type.name()));
 		bt.setActionCommand(type.name());
 		bt.addActionListener(al);
@@ -295,11 +290,9 @@ public class StatementAction extends AccountAbstractAction {
 
 		// Statement result
 		JPanel transactionsPanel = new JPanel();
-		transactionsPanel
-				.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		transactionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		transactions = new JTable();
-		JScrollPane scrollPane = new JScrollPane(transactions,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		JScrollPane scrollPane = new JScrollPane(transactions, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		transactionsPanel.add(scrollPane);
 
@@ -314,8 +307,7 @@ public class StatementAction extends AccountAbstractAction {
 
 		btM.doClick();
 
-		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(),
-				"action.statement", pane);
+		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(), "action.statement", pane);
 		this.dialog.setVisible(true);
 	}
 
@@ -325,23 +317,18 @@ public class StatementAction extends AccountAbstractAction {
 				return;
 			MonthYear my = (MonthYear) month.getSelectedItem();
 
-			List<Transaction> transactions = accountOperationService
-					.getStatementByMonth(
-							((Number) branch.getValue()).longValue(),
-							((Number) accountNumber.getValue()).longValue(),
-							my.month, my.year);
-			this.transactions.setModel(new TransactionTableModel(
-					new CurrentAccountId(new Branch(
-							((Number) branch.getValue()).longValue()),
-							((Number) accountNumber.getValue()).longValue()),
-					transactions));
+			List<Transaction> transactions = accountOperationService.getStatementByMonth(
+					((Number) branch.getValue()).longValue(), ((Number) accountNumber.getValue()).longValue(), my.month,
+					my.year);
+			this.transactions.setModel(
+					new TransactionTableModel(new CurrentAccountId(new Branch(((Number) branch.getValue()).longValue()),
+							((Number) accountNumber.getValue()).longValue()), transactions));
 		} catch (BusinessException be) {
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					be.getMessage(), be.getArgs(), JOptionPane.WARNING_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), be.getMessage(), be.getArgs(),
+					JOptionPane.WARNING_MESSAGE);
 			log.warn(be);
 		} catch (Exception exc) {
-			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(),
-					exc);
+			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(), exc);
 		}
 	}
 
@@ -356,41 +343,32 @@ public class StatementAction extends AccountAbstractAction {
 
 			if (begin == null || end == null) {
 				Calendar cal = Calendar.getInstance();
-				cal.set(Calendar.HOUR_OF_DAY,
-						cal.getActualMaximum(Calendar.HOUR_OF_DAY));
+				cal.set(Calendar.HOUR_OF_DAY, cal.getActualMaximum(Calendar.HOUR_OF_DAY));
 				cal.set(Calendar.MINUTE, cal.getActualMaximum(Calendar.MINUTE));
 				cal.set(Calendar.SECOND, cal.getActualMaximum(Calendar.SECOND));
-				cal.set(Calendar.MILLISECOND,
-						cal.getActualMaximum(Calendar.MILLISECOND));
+				cal.set(Calendar.MILLISECOND, cal.getActualMaximum(Calendar.MILLISECOND));
 				end = cal.getTime();
 
 				cal.add(Calendar.DAY_OF_MONTH, -30);
-				cal.set(Calendar.HOUR_OF_DAY,
-						cal.getActualMinimum(Calendar.HOUR_OF_DAY));
+				cal.set(Calendar.HOUR_OF_DAY, cal.getActualMinimum(Calendar.HOUR_OF_DAY));
 				cal.set(Calendar.MINUTE, cal.getActualMinimum(Calendar.MINUTE));
 				cal.set(Calendar.SECOND, cal.getActualMinimum(Calendar.SECOND));
-				cal.set(Calendar.MILLISECOND,
-						cal.getActualMinimum(Calendar.MILLISECOND));
+				cal.set(Calendar.MILLISECOND, cal.getActualMinimum(Calendar.MILLISECOND));
 				begin = cal.getTime();
 			}
 
-			List<Transaction> transactions = accountOperationService
-					.getStatementByDate(
-							((Number) branch.getValue()).longValue(),
-							((Number) accountNumber.getValue()).longValue(),
-							begin, end);
-			this.transactions.setModel(new TransactionTableModel(
-					new CurrentAccountId(new Branch(
-							((Number) branch.getValue()).longValue()),
-							((Number) accountNumber.getValue()).longValue()),
-					transactions));
+			List<Transaction> transactions = accountOperationService.getStatementByDate(
+					((Number) branch.getValue()).longValue(), ((Number) accountNumber.getValue()).longValue(), begin,
+					end);
+			this.transactions.setModel(
+					new TransactionTableModel(new CurrentAccountId(new Branch(((Number) branch.getValue()).longValue()),
+							((Number) accountNumber.getValue()).longValue()), transactions));
 		} catch (BusinessException be) {
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					be.getMessage(), be.getArgs(), JOptionPane.WARNING_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), be.getMessage(), be.getArgs(),
+					JOptionPane.WARNING_MESSAGE);
 			log.warn(be);
 		} catch (Exception exc) {
-			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(),
-					exc);
+			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(), exc);
 		}
 	}
 

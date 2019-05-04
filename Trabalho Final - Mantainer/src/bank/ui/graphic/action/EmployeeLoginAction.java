@@ -41,14 +41,12 @@ public class EmployeeLoginAction extends BankAction {
 	private JPasswordField password;
 	private JTextField username;
 
-	public EmployeeLoginAction(BankGraphicInterface bankInterface,
-			TextManager textManager,
+	public EmployeeLoginAction(BankGraphicInterface bankInterface, TextManager textManager,
 			AccountManagementService accountManagementService) {
 		super(bankInterface, textManager);
 		this.accountManagementService = accountManagementService;
 
-		super.putValue(Action.ACCELERATOR_KEY,
-				KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
+		super.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
 		super.putValue(Action.NAME, textManager.getText("action.login"));
 		setEnabled(true);
 	}
@@ -81,25 +79,22 @@ public class EmployeeLoginAction extends BankAction {
 		subpanel.add(ok);
 		panel.add(subpanel, BorderLayout.SOUTH);
 
-		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(),
-				"action.login", panel);
+		this.dialog = GUIUtils.INSTANCE.createDialog(bankInterface.getFrame(), "action.login", panel);
 		this.dialog.setVisible(true);
 	}
 
 	private void executeLogin() {
 		try {
-			Employee employee = accountManagementService.login(
-					username.getText(), new String(password.getPassword()));
+			Employee employee = accountManagementService.login(username.getText(), new String(password.getPassword()));
 			bankInterface.login(employee);
 			dialog.dispose();
 			dialog = null;
 		} catch (BusinessException be) {
-			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(),
-					be.getMessage(), be.getArgs(), JOptionPane.WARNING_MESSAGE);
+			GUIUtils.INSTANCE.showMessage(bankInterface.getFrame(), be.getMessage(), be.getArgs(),
+					JOptionPane.WARNING_MESSAGE);
 			log.warn(be);
 		} catch (Exception exc) {
-			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(),
-					exc);
+			GUIUtils.INSTANCE.handleUnexceptedError(bankInterface.getFrame(), exc);
 		}
 	}
 

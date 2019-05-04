@@ -13,8 +13,7 @@ public class EmployeeLoginCommand extends Command {
 
 	private final AccountManagementService accountManagementService;
 
-	public EmployeeLoginCommand(BankTextInterface bankInterface,
-			AccountManagementService accountManagementService) {
+	public EmployeeLoginCommand(BankTextInterface bankInterface, AccountManagementService accountManagementService) {
 		super(bankInterface, true);
 		this.accountManagementService = accountManagementService;
 	}

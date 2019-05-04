@@ -16,8 +16,7 @@ public abstract class User {
 	protected String lastName;
 	protected String password;
 
-	protected User(String firstName, String lastName, String password,
-			Date birthday) {
+	protected User(String firstName, String lastName, String password, Date birthday) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
@@ -57,32 +56,28 @@ public abstract class User {
 	}
 
 	/**
-	 * @param birthday
-	 *            the birthday to set
+	 * @param birthday the birthday to set
 	 */
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
 	/**
-	 * @param firstName
-	 *            the firstName to set
+	 * @param firstName the firstName to set
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
 	/**
-	 * @param lastName
-	 *            the lastName to set
+	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
 	/**
-	 * @param password
-	 *            the password to set
+	 * @param password the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;

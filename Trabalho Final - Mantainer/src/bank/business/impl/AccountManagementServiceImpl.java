@@ -30,19 +30,15 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 	}
 
 	@Override
-	public CurrentAccount createCurrentAccount(long branch, String name,
-			String lastName, int cpf, Date birthday, double balance)
-			throws BusinessException {
-		OperationLocation operationLocation = database
-				.getOperationLocation(branch);
+	public CurrentAccount createCurrentAccount(long branch, String name, String lastName, int cpf, Date birthday,
+			double balance) throws BusinessException {
+		OperationLocation operationLocation = database.getOperationLocation(branch);
 		if (operationLocation == null || !(operationLocation instanceof Branch)) {
 			throw new BusinessException("exception.invalid.branch");
 		}
 
-		Client client = new Client(name, lastName, cpf, random.nextString(),
-				birthday);
-		CurrentAccount currentAccount = new CurrentAccount(
-				(Branch) operationLocation,
+		Client client = new Client(name, lastName, cpf, random.nextString(), birthday);
+		CurrentAccount currentAccount = new CurrentAccount((Branch) operationLocation,
 				database.getNextCurrentAccountNumber(), client, balance);
 
 		database.save(currentAccount);
@@ -51,8 +47,7 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 	}
 
 	@Override
-	public Employee login(String username, String password)
-			throws BusinessException {
+	public Employee login(String username, String password) throws BusinessException {
 		Employee employee = database.getEmployee(username);
 
 		if (employee == null) {

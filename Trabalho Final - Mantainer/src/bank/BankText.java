@@ -28,17 +28,14 @@ public class BankText extends Bank {
 	}
 
 	@Override
-	public BankInterface createATMInterface(ATM atm,
-			AccountOperationServiceImpl accountOperationService) {
+	public BankInterface createATMInterface(ATM atm, AccountOperationServiceImpl accountOperationService) {
 		return new ATMInterface(atm, accountOperationService);
 	}
 
 	@Override
-	public BankInterface createBranchInterface(Branch branch,
-			AccountManagementService accountManagementService,
+	public BankInterface createBranchInterface(Branch branch, AccountManagementService accountManagementService,
 			AccountOperationServiceImpl accountOperationService) {
-		return new BranchInterface(branch, accountManagementService,
-				accountOperationService);
+		return new BranchInterface(branch, accountManagementService, accountOperationService);
 	}
 
 	private String getMenu() {
@@ -46,7 +43,7 @@ public class BankText extends Bank {
 		for (int i = 0; i < bankInterfaces.size(); i++) {
 			BankInterface bi = bankInterfaces.get(i);
 			sb.append(i + 1).append(" - ");
-			if (bi instanceof BranchInterface) { //Campus Vale, Centro
+			if (bi instanceof BranchInterface) { // Campus Vale, Centro
 				sb.append(((Branch) bi.getOperationLocation()).getName());
 			} else {
 				assert bi instanceof ATMInterface;
@@ -54,9 +51,7 @@ public class BankText extends Bank {
 			}
 			sb.append("\n");
 		}
-		sb.append(UIUtils.INSTANCE.getTextManager().getText(
-				"message.choose.bank.interface")
-				+ ": ");
+		sb.append(UIUtils.INSTANCE.getTextManager().getText("message.choose.bank.interface") + ": ");
 		return sb.toString();
 	}
 
